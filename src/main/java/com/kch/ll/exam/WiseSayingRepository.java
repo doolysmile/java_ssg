@@ -1,57 +1,41 @@
 package com.kch.ll.exam;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WiseSayingRepository {
-    private List<WiseSaying> wiseSayings;
-    private int wiseSayingLastId;
+    private WiseSayingTable wiseSayingTable;
 
-    WiseSayingRepository() {
-        wiseSayings = new ArrayList<>();
-        wiseSayingLastId = 0;
+    public WiseSayingRepository() {
+        wiseSayingTable = new WiseSayingTable();
+    }
+    public WiseSaying write(String content, String author) {
+        return wiseSayingTable.save(content, author);
     }
 
-    public WiseSaying findById(int paramId) {
-        for (WiseSaying wiseSaying : wiseSayings) {
-            if (wiseSaying.id == paramId) {
-                return wiseSaying;
-            }
-        }
 
-        // 하나 찾기
-
-        return null;
-    }
 
     public List<WiseSaying> findAll() {
-        return wiseSayings;
-
-        // 다 찾기
+        return wiseSayingTable.findAll();
     }
 
-    public WiseSaying write(String content, String author) {
-        int id = ++wiseSayingLastId;
-        WiseSaying wiseSaying = new WiseSaying(id, content, author);
-        wiseSayings.add(wiseSaying);
-
-        // 파일저장
-
-        return wiseSaying;
+    public WiseSaying findById(int id) {
+        return wiseSayingTable.findById(id);
     }
 
-    public void remove(int paramId) {
-        WiseSaying foundWiseSaying = findById(paramId);
-        wiseSayings.remove(foundWiseSaying);
-
-        // 파일 삭제
+    public boolean modify(int id, String content, String author) {
+        return wiseSayingTable.save(id, content, author);
     }
 
-    public void modify(int paramId, String content, String author) {
-        WiseSaying foundWiseSaying = findById(paramId);
-        foundWiseSaying.content = content;
-        foundWiseSaying.author = author;
-
-        // 파일 수정
+    public boolean remove(int id) {
+        return wiseSayingTable.removeById(id);
     }
+
+    public void saveFile(){
+        wiseSayingTable.dumpToJson();
+    }
+
+
 }
