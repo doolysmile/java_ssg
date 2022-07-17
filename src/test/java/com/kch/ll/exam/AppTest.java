@@ -32,4 +32,13 @@ class AppTest {
 
         assertEquals("안녕", body);
     }
+
+    @Test
+    public void command_test(){
+        String test = AppTestRunner.run("""
+                테스트
+                종료
+                """);
+        assertTrue(test.contains("테스트"));
+    }
 }
