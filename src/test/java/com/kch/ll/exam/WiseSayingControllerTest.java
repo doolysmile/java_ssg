@@ -14,7 +14,6 @@ public class WiseSayingControllerTest {
     public void beforeAll() {
         App.setMode("test");
     }
-
     @BeforeEach
     public void beforeEach() {
         Util.file.deleteDir(App.getDataBaseDir());
@@ -27,7 +26,6 @@ public class WiseSayingControllerTest {
                 나의 죽음을 적들에게 알리지 말라
                 이순신
                 """);
-
         assertTrue(rs.contains("명언 : "));
         assertTrue(rs.contains("작가 : "));
     }
